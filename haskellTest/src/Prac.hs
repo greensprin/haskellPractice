@@ -9,17 +9,22 @@ module Prac
       ,myDrop
       ,myReverse
       ,factWithProduct
+      ,perpPoint
+      ,rot13
     ) where
 
+-- Q7ã§ä½¿ç”¨
+import Data.Char
+
 -- Q1
--- switch case•¶‚Ì‹­‰»”Å ‚Ü‚¸‚Í‚±‚ê‚Å‘‚¯‚È‚¢‚©‚ðl‚¦‚é
+-- switch caseæ–‡ã®å¼·åŒ–ç‰ˆ ã¾ãšã¯ã“ã‚Œã§æ›¸ã‘ãªã„ã‹ã‚’è€ƒãˆã‚‹
 fib :: Int -> Int
 fib 0 = 0
 fib 1 = 1
 fib n = fib(n - 1) + fib(n - 2)
 
 -- Q2
--- if•¶‚Ì—…—ñ
+-- ifæ–‡ã®ç¾…åˆ—
 fib_gard :: Int -> Int
 fib_gard n
   | n == 0 = 0
@@ -27,7 +32,7 @@ fib_gard n
   | otherwise = fib(n - 1) + fib(n - 2)
 
 -- Q3
--- case of •¶
+-- case of æ–‡
 fib_case_of :: Int -> Int
 fib_case_of n = case n of
   0 -> 0
@@ -35,7 +40,7 @@ fib_case_of n = case n of
   _ | n > 0 -> fib_case_of(n - 1) + fib_case_of(n - 2)
 
 -- Q4
--- ƒŠƒXƒg
+-- ãƒªã‚¹ãƒˆ
 myLength :: [Int] -> Int
 myLength []     = 0
 myLength (_:xs) = 1 + myLength xs
@@ -62,8 +67,24 @@ myReverse :: [Int] -> [Int]
 myReverse [] = []
 myReverse (x:xs) = myReverse xs ++ [x]
 
--- Q5
+-- Q5 
 factWithProduct :: Int -> Int
 factWithProduct n | n > 0 = myProduct [1..n]
 
--- ŽŸ‰ñƒ^ƒvƒ‹‚©‚ç
+-- Q6 taple
+-- å‰²ã‚Šç®—ã‚’ä½¿ç”¨ã™ã‚‹éš›ã¯å°æ•°ç‚¹ãŒå‡ºã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ãŸã‚ã€doubleã§åž‹ã‚’å®šç¾©ã™ã‚‹
+perpPoint :: (Double, Double) -> (Double, Double, Double) -> (Double, Double)
+perpPoint (p, q) (a, b, c) = (x, y)
+  where
+    x = (a*c + b*d) / (a*a + b*b) :: Double
+    y = (b*c - a*d) / (a*a + b*b) :: Double
+    d = b*p - a*q :: Double
+
+-- Q7 ROT13 å¤§æ–‡å­—ã®ã¿å¯¾å¿œ && || ãªã©ã§æ¡ä»¶åˆ†å²ã™ã‚Œã°å°æ–‡å­—ã«ã‚‚å¯¾å¿œå¯
+rot13 :: Char -> Char
+rot13 chr1
+  | (ord chr1) < (ord 'N') = chr $ (ord chr1) + 13
+  | otherwise              = chr $ (ord chr1) - 13
+
+-- Q8 
+

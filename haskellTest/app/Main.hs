@@ -15,4 +15,6 @@ main = do
   --print $ myTake 2 [1, 2, 3]
   --print $ myDrop 2 [1, 2, 3]
   --print $ myReverse [1, 2, 3]
-  print $ factWithProduct 5
+  --print $ factWithProduct 5
+  --print $ perpPoint (0, 2) (1, -1, 0)
+  print $ rot13 'A'
