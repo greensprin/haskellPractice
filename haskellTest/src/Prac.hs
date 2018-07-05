@@ -11,10 +11,16 @@ module Prac
       ,factWithProduct
       ,perpPoint
       ,rot13
+      ,isort
+      ,testDebug
+      ,bsort
+      ,msort
     ) where
 
 -- Q7で使用
 import Data.Char
+-- debugで使用
+import Debug.Trace
 
 -- Q1
 -- switch case文の強化版 まずはこれで書けないかを考える
@@ -86,5 +92,59 @@ rot13 chr1
   | (ord chr1) < (ord 'N') = chr $ (ord chr1) + 13
   | otherwise              = chr $ (ord chr1) - 13
 
--- Q8 
+-- example sort
+insert :: Int -> [Int] -> [Int]
+insert x [] = [x]
+insert x (y:ys)
+  | x < y     = x:y:ys
+  | otherwise = y : insert x ys
 
+isort :: [Int] -> [Int]
+isort []     = []
+isort (x:xs) = insert x (isort xs)
+
+-- how to debug test 
+--testDebug Int -> Int
+testDebug :: Show a => a -> a
+testDebug x = trace( "test" ++ show x ) x
+
+-- Q8 buble sort
+-- bswap
+-- 最小値を先頭にし、以降はそれ以外となったリストを返す
+bswap :: [Int] -> [Int]
+bswap [x] = [x]
+bswap (x:xs)
+  | x > y     = y:x:ys
+  | otherwise = x:y:ys
+    where
+      (y:ys) = bswap xs
+
+-- | buble sort
+--
+--   先頭を取り除き、それ以外のリストの数値から最小の値を先頭にするよう並び替える
+bsort :: [Int] -> [Int]
+bsort [] = []
+bsort xs = y : bsort ys
+  where (y:ys) = bswap xs
+
+-- Q9 merge sort
+-- | merge sort
+--   
+--   行きはリストを分割し、帰りに2つのリストを比較し、小さいものを順に返す
+msort :: [Int] -> [Int]
+msort []  = []
+msort [x] = [x]
+msort xs  = merge (msort ys) (msort zs)
+  where
+    ys   = take hlen xs
+    zs   = drop hlen xs
+    hlen = (length xs) `div` 2
+
+-- 2つの配列の先頭を比べ、小さいものを取り出す、そのほかものはさらにこの関数に入れ比較
+-- 最終的に2つのリスト内のものが小さい順にならんで結合されたものが出てくる
+merge :: [Int] -> [Int] -> [Int]
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys) 
+  | x < y = x : merge xs (y:ys)
+  | otherwise = y : merge (x:xs) ys
