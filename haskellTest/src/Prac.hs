@@ -15,6 +15,7 @@ module Prac
       ,testDebug
       ,bsort
       ,msort
+      ,qsort
     ) where
 
 -- Q7で使用
@@ -149,4 +150,17 @@ merge (x:xs) (y:ys)
   | x < y = x : merge xs (y:ys)
   | otherwise = y : merge (x:xs) ys
 
+-- Q10
+-- | quick sort
+--   
+--   先頭の数値以下のものと、以上のものでリスト内の要素を分け、
+--   先頭の数値を真ん中とし結合
+--
+--   分割されたリストはそれぞれさらにソートを行う
 
+qsort :: [Int] -> [Int]
+qsort [] = []
+qsort (n:xs) = qsort lt ++ [n] ++ qsort gteq
+  where
+    lt   = [x | x <- xs, x <  n]
+    gteq = [x | x <- xs, x >= n]

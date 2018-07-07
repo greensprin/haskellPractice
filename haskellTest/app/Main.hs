@@ -24,8 +24,9 @@ main = do
   --print $ show $ testDebug 5 --traceIO‚ÍŽg‚¦‚È‚©‚Á‚½
   --print $ bsort [3, 5, 33, 496, 2, 7, 232]
   --print $ msort [3, 5, 33, 496, 2, 7, 232]
+  print $ qsort [4, 6, 9, 8, 3, 5, 1, 7, 2]
   
   --SHBook Function
   --print $ doubleMe 5
   --print $ doubleUs 4 9
-  print $ doubleSmallNumber 4
+  --print $ doubleSmallNumber 4
