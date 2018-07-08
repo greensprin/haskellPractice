@@ -1,3 +1,5 @@
+{-# OPTIONS -Wall -Werror #-}
+
 module Prac
     (  fib
       ,fib_gard
@@ -16,6 +18,7 @@ module Prac
       ,bsort
       ,msort
       ,qsort
+      ,triUnder20
     ) where
 
 -- Q7で使用
@@ -23,6 +26,7 @@ import Data.Char
 -- debugで使用
 import Debug.Trace
 
+-- 第1章
 -- Q1
 -- switch case文の強化版 まずはこれで書けないかを考える
 fib :: Int -> Int
@@ -44,7 +48,9 @@ fib_case_of :: Int -> Int
 fib_case_of n = case n of
   0 -> 0
   1 -> 1
-  _ | n > 0 -> fib_case_of(n - 1) + fib_case_of(n - 2)
+  _
+    | n > 0 -> fib_case_of(n - 1) + fib_case_of(n - 2)
+    | otherwise -> 0
 
 -- Q4
 -- リスト
@@ -68,7 +74,7 @@ myTake n (x:xs)    = x : myTake (n-1) xs
 myDrop :: Int -> [Int] -> [Int]
 myDrop _ []         = []
 myDrop n xs | n < 1 = xs
-myDrop n (x:xs)     = myDrop (n-1) xs
+myDrop n xs         = myDrop (n-1) xs
 
 myReverse :: [Int] -> [Int]
 myReverse [] = []
@@ -76,8 +82,9 @@ myReverse (x:xs) = myReverse xs ++ [x]
 
 -- Q5 
 factWithProduct :: Int -> Int
-factWithProduct n | n > 0 = myProduct [1..n]
-
+factWithProduct n
+  | n > 0 = myProduct [1..n]
+  | otherwise = 0
 -- Q6 taple
 -- 割り算を使用する際は小数点が出る可能性があるため、doubleで型を定義する
 perpPoint :: (Double, Double) -> (Double, Double, Double) -> (Double, Double)
@@ -113,6 +120,7 @@ testDebug x = trace( "test" ++ show x ) x
 -- bswap
 -- 最小値を先頭にし、以降はそれ以外となったリストを返す
 bswap :: [Int] -> [Int]
+bswap []  = []
 bswap [x] = [x]
 bswap (x:xs)
   | x > y     = y:x:ys
@@ -164,3 +172,10 @@ qsort (n:xs) = qsort lt ++ [n] ++ qsort gteq
   where
     lt   = [x | x <- xs, x <  n]
     gteq = [x | x <- xs, x >= n]
+
+-- Q11
+triUnder20 :: (Num a, Eq a) => [a] -> [a] -> [a] -> [(a, a, a)]
+triUnder20 xs ys zs = [(x, y, z) | x <- xs, y <- ys, z <- zs, z*z == x*x + y*y]
+
+-- 第2章
+
